@@ -20,9 +20,18 @@ This project was developed as part of Rocketseat's Posgraduate first semester ch
 
 ## 🛠️ Technologies Used
 
+### Web
+
 - **React** with **Vite**
 - **TypeScript**
 - **Tailwind CSS**
 - **Tanstack Router**
+
+### Server
+
+- **Node.js** with **Fastify**
+- **TypeScript**
+- **Drizzle ORM**
+- **PostgreSQL**
 
 ---
