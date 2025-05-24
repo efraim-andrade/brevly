@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+@import 'tailwindcss';
+
+@theme {
+  /* Colors */
+  --color-blue-base: #2c46b1;
+  --color-blue-dark: #2c4091;
+
+  --color-gray-100: #f9f9fb;
+  --color-gray-200: #e4e6ec;
+  --color-gray-300: #cdcfd5;
+  --color-gray-400: #74798b;
+  --color-gray-500: #4d505c;
+  --color-gray-600: #1f2025;
+
+  --color-danger: #b12c4d;
+
+  /* Typography */
+  --text-xl: 24px;
+  --text-xl--line-height: 32px;
+  --text-xl--font-weight: bold;
+
+  --text-lg: 18px;
+  --text-lg--line-height: 24px;
+  --text-lg--font-weight: bold;
+
+  --text-md: 14px;
+  --text-md--line-height: 18px;
+  --text-md--font-weight: semibold;
+
+  --text-sm: 12px;
+  --text-sm--line-height: 16px;
+  --text-sm--font-weight: regular;
+
+  --text-xs: 10px;
+  --text-xs--line-height: 14px;
+  --text-xs--font-weight: regular;
+
+  /* Border */
+  --border-1: 1px;
+}
+
+body {
+  @apply m-0;
+  font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  background: var(--color-gray-200);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
