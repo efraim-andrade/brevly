@@ -27,6 +27,9 @@
     "concurrently": "^8.2.1"
   },
   "dependencies": {
-    "@tanstack/react-query-devtools": "^5.77.0"
+    "@aws-sdk/client-s3": "^3.817.0",
+    "@aws-sdk/lib-storage": "^3.817.0",
+    "@tanstack/react-query-devtools": "^5.77.0",
+    "csv-stringify": "^6.5.2"
   }
 }

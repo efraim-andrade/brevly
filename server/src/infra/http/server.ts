@@ -1,4 +1,5 @@
 import fastifyCors from '@fastify/cors'
+import fastifyMultipart from '@fastify/multipart'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUi from '@fastify/swagger-ui'
 import fastify from 'fastify'
@@ -11,6 +12,7 @@ import {
 import { env } from '~/env'
 import { createLinkRoute } from '~/infra/http/routes/createLink'
 import { deleteLinkRoute } from '~/infra/http/routes/deleteLink'
+import { exportLinksRoute } from '~/infra/http/routes/exportLinks'
 import { getLinkRoute } from '~/infra/http/routes/getLink'
 import { getLinksRoute } from '~/infra/http/routes/getLinks'
 import { healthCheckRoute } from '~/infra/http/routes/healthCheck'
@@ -38,6 +40,7 @@ server.setErrorHandler((error, request, reply) => {
 
 server.register(fastifyCors, { origin: '*', methods: ['GET', 'POST', 'PUT', 'DELETE'] })
 
+server.register(fastifyMultipart)
 server.register(fastifySwagger, {
   openapi: {
     info: {
@@ -58,6 +61,7 @@ server.register(createLinkRoute)
 server.register(deleteLinkRoute)
 server.register(getLinkRoute)
 server.register(updateAccessRoute)
+server.register(exportLinksRoute)
 
 server.listen({ port: Number(env.PORT) }).then(() => {
   console.log(`Brev.ly server is running on port ${env.PORT}... 🪴`)
