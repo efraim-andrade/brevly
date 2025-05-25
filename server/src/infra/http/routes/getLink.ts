@@ -19,7 +19,7 @@ const swaggerSchema = {
 
 export async function getLinkRoute(server: FastifyInstance) {
   server.get(
-    '/getLink/:shortUrl',
+    '/link/:shortUrl',
     { schema: swaggerSchema },
     async (request, reply) => {
       const { shortUrl } = getLinkSchema.params.parse(request.params)

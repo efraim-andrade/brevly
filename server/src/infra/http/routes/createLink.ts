@@ -24,7 +24,7 @@ const swaggerSchema = {
 
 export const createLinkRoute: FastifyPluginAsyncZod = async server => {
   server.post(
-    '/createLink',
+    '/link',
     {
       schema: swaggerSchema,
     },

@@ -24,7 +24,7 @@ const swaggerSchema = {
 
 export const deleteLinkRoute: FastifyPluginAsyncZod = async server => {
   server.delete(
-    '/deleteLink/:shortUrl',
+    '/link/:shortUrl',
     {
       schema: swaggerSchema,
     },

@@ -8,25 +8,25 @@ export async function getLinks() {
 	return response;
 }
 
-export type CreateLinkRequest = Pick<Link, "original" | "shortened">;
+export type CreateLinkRequest = Pick<Link, "originalUrl" | "shortUrl">;
 
 export async function createLink(link: CreateLinkRequest) {
 	const response = await api.post<CreateLinkRequest>({
-		url: `${BASE_URL}/links`,
+		url: `${BASE_URL}/link`,
 		data: link,
 	});
 
 	return response;
 }
 
-export async function deleteLink<T>(id: string) {
-	const response = await api.delete<T>({ url: `${BASE_URL}/links/${id}` });
+export async function deleteLink<T>(shortUrl: string) {
+	const response = await api.delete<T>({ url: `${BASE_URL}/links/${shortUrl}` });
 
 	return response;
 }
 
-export async function updateLinkAccessNumber<T>(id: string) {
-	const response = await api.patch<T>({ url: `${BASE_URL}/links/${id}` });
+export async function updateLinkAccessNumber<T>(shortUrl: string) {
+	const response = await api.patch<T>({ url: `${BASE_URL}/links/${shortUrl}` });
 
 	return response;
 }

@@ -11,10 +11,10 @@ This project was developed as part of Rocketseat's Posgraduate first semester ch
 **Brev.ly** allows users to:
 
 - 🔗 Shorten long URLs
-- 📋 List all shortened links
+- 📋 List all shortUrl links
 - ❌ Delete unwanted links
 - 📈 Generate access reports for each link
-- 🔁 Redirect shortened URLs to their original destinations
+- 🔁 Redirect shortUrl URLs to their originalUrl destinations
 
 ---
 
@@ -35,3 +35,12 @@ This project was developed as part of Rocketseat's Posgraduate first semester ch
 - **PostgreSQL**
 
 ---
+
+## How to run
+
+```bash
+pnpm install
+pnpm run docker:generate
+pnpm run install
+pnpm run dev
+```

@@ -10,10 +10,9 @@ import {
 import { useState } from "react";
 
 export function LinkItem({
-	clicks = 0,
-	original,
-	shortened,
-	id,
+	accessCount = 0,
+	originalUrl,
+	shortUrl,
 	...rest
 }: Link) {
 	const { mutate: deleteLink, isPending: isDeleting } = useDeleteLinkMutation();
@@ -21,7 +20,7 @@ export function LinkItem({
 	const [copied, setCopied] = useState(false);
 
 	const handleCopy = () => {
-		navigator.clipboard.writeText(shortened);
+		navigator.clipboard.writeText(shortUrl);
 		setCopied(true);
 
 		setTimeout(() => {
@@ -30,7 +29,7 @@ export function LinkItem({
 	};
 
 	const handleDelete = () => {
-		deleteLink(id);
+		deleteLink(shortUrl);
 	};
 
 	return (
@@ -40,26 +39,26 @@ export function LinkItem({
 		>
 			<div className="flex flex-col gap-1 col-span-3 lg:col-span-4">
 				<a
-					href={`https://${shortened}`}
+					href={`https://${shortUrl}`}
 					target="_blank"
 					rel="noopener noreferrer"
 					className="text-md text-blue-base truncate hover:brightness-130"
 				>
-					{shortened}
+					{shortUrl}
 				</a>
 
 				<a
-					href={original}
+					href={originalUrl}
 					target="_blank"
 					rel="noopener noreferrer"
 					className="text-sm text-gray-500 truncate hover:text-gray-900"
 				>
-					{original}
+					{originalUrl}
 				</a>
 			</div>
 
 			<div className="flex gap-4 col-span-3 lg:col-span-2 items-center justify-self-end">
-				<span className="text-sm text-gray-500">{clicks} acessos</span>
+				<span className="text-sm text-gray-500">{accessCount} acessos</span>
 
 				<div className="flex gap-1">
 					<IconButton

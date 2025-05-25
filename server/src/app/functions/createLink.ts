@@ -1,4 +1,3 @@
-import { randomUUID } from 'node:crypto'
 import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { ShortURLAlreadyExistsError } from '~/app/functions/errors/shortUrlAlreadyExists'
@@ -33,7 +32,6 @@ export async function createLink(
   }
 
   await db.insert(links).values({
-    id: randomUUID(),
     originalUrl,
     shortUrl,
   })

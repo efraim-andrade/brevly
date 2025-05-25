@@ -8,9 +8,14 @@ export const api = {
 		try {
 			const response = await fetch(url);
 
+			if (!response.ok) {
+				const errorData = await response.json();
+				throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+			}
+
 			return await (response.json() as Promise<T>);
 		} catch (error) {
-			console.error(error);
+			throw error;
 		}
 	},
 
@@ -18,12 +23,20 @@ export const api = {
 		try {
 			const response = await fetch(url, {
 				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
 				body: JSON.stringify(data),
 			});
 
+			if (!response.ok) {
+				const errorData = await response.json();
+				throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+			}
+
 			return await (response.json() as Promise<T>);
 		} catch (error) {
-			console.error(error);
+			throw error;
 		}
 	},
 
@@ -33,9 +46,14 @@ export const api = {
 				method: "DELETE",
 			});
 
+			if (!response.ok) {
+				const errorData = await response.json();
+				throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+			}
+
 			return await (response.json() as Promise<T>);
 		} catch (error) {
-			console.error(error);
+			throw error;
 		}
 	},
 
@@ -46,9 +64,14 @@ export const api = {
 				body: JSON.stringify(data),
 			});
 
+			if (!response.ok) {
+				const errorData = await response.json();
+				throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+			}
+
 			return await (response.json() as Promise<T>);
 		} catch (error) {
-			console.error(error);
+			throw error;
 		}
 	},
 
@@ -59,9 +82,14 @@ export const api = {
 				body: JSON.stringify(data),
 			});
 
+			if (!response.ok) {
+				const errorData = await response.json();
+				throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+			}
+
 			return await (response.json() as Promise<T>);
 		} catch (error) {
-			console.error(error);
+			throw error;
 		}
 	},
 };

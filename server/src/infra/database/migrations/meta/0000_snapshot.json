@@ -1,5 +1,5 @@
 {
-  "id": "8568634f-187d-4b60-9330-851e61ed4b54",
+  "id": "e3ddcade-5d2c-4283-9c0d-22d255404c51",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -8,12 +8,6 @@
       "name": "links",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
         "original_url": {
           "name": "original_url",
           "type": "text",
@@ -23,7 +17,7 @@
         "short_url": {
           "name": "short_url",
           "type": "text",
-          "primaryKey": false,
+          "primaryKey": true,
           "notNull": true
         },
         "access_count": {

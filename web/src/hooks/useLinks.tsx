@@ -42,7 +42,7 @@ export function useDeleteLinkMutation() {
 
 export function useUpdateLinkAccessNumberMutation() {
 	const mutation = useMutation({
-		mutationFn: (id: string) => updateLinkAccessNumber(id),
+		mutationFn: (shortUrl: string) => updateLinkAccessNumber(shortUrl),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["links"] });
 		},

@@ -1,13 +1,13 @@
+import { Feedback } from "@/components/Feedback";
 import { Button, Input } from "@/components/ui";
 import { useCreateLinkMutation } from "@/hooks/useLinks";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { WarningIcon } from "@phosphor-icons/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const schema = z.object({
-	original: z.string().url("Deve ser uma URL válida"),
-	shortened: z.string().min(1, "Campo obrigatório"),
+	originalUrl: z.string().url("Deve ser uma URL válida"),
+	shortUrl: z.string().min(1, "Campo obrigatório"),
 });
 
 export type LinkFields = z.infer<typeof schema>;
@@ -27,8 +27,8 @@ export function NewLinkForm() {
 	} = useForm<LinkFields>({
 		resolver: zodResolver(schema),
 		defaultValues: {
-			original: "",
-			shortened: "",
+			originalUrl: "",
+			shortUrl: "",
 		},
 	});
 
@@ -49,29 +49,22 @@ export function NewLinkForm() {
 				label="Link Original"
 				placeholder="www.exemplo.com.br"
 				register={register}
-				name="original"
-				error={errors.original?.message}
+				name="originalUrl"
+				error={errors.originalUrl?.message}
 			/>
 
 			<Input
 				label="Link Encurtado"
 				placeholder="brev.ly/"
 				register={register}
-				name="shortened"
-				error={errors.shortened?.message}
+				name="shortUrl"
+				error={errors.shortUrl?.message}
 			/>
 
 			<Button label="Salvar link" type="submit" isLoading={isPending} />
 
 			{createLinkError && (
-				<div className="flex items-center gap-2 bg-danger-light p-2 rounded-lg bg-red-50">
-					<WarningIcon className="text-danger" size={16} />
-
-					<span className="text-sm text-danger">
-						{createLinkError.message ||
-							"Something went wrong on create link, try again later"}
-					</span>
-				</div>
+				<Feedback message={createLinkError.message || "Something went wrong on create link, try again later"} />
 			)}
 		</form>
 	);
