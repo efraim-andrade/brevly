@@ -25,5 +25,8 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^8.2.1"
+  },
+  "dependencies": {
+    "@tanstack/react-query-devtools": "^5.77.0"
   }
 }

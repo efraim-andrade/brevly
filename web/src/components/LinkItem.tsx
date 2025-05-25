@@ -35,11 +35,10 @@ export function LinkItem({
 	return (
 		<li
 			className="grid grid-cols-6 gap-4 justify-between items-start not-first:border-t not-first:border-gray-200 not-first:pt-4"
-			{...rest}
 		>
 			<div className="flex flex-col gap-1 col-span-3 lg:col-span-4">
 				<a
-					href={`https://${shortUrl}`}
+					href={shortUrl}
 					target="_blank"
 					rel="noopener noreferrer"
 					className="text-md text-blue-base truncate hover:brightness-130"
@@ -70,7 +69,7 @@ export function LinkItem({
 					<IconButton
 						icon={isDeleting ? <SpinnerIcon /> : <TrashIcon />}
 						onClick={handleDelete}
-						className={isDeleting ? "bg-red-300" : ""}
+						className={isDeleting ? "bg-red-300" : "hover:bg-red-300 hover:border-red-300"}
 					/>
 				</div>
 			</div>

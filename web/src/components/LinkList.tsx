@@ -1,10 +1,18 @@
 import { Feedback } from "@/components/Feedback";
 import { LinkItem } from "@/components/LinkItem";
 import { useLinksQuery } from "@/hooks/useLinks";
-import { LinkIcon } from "@phosphor-icons/react";
+import { LinkIcon, SpinnerIcon } from "@phosphor-icons/react";
 
 export function LinkList() {
-	const { data: links, error } = useLinksQuery();
+	const { data: links, error, isFetching } = useLinksQuery();
+
+	if (isFetching) {
+		return (
+			<div className="flex flex-col gap-4 items-center justify-center">
+				<SpinnerIcon className="text-blue-base animate-spin" size={38} />
+			</div>
+		);
+	}
 
 	if (!links || links.length === 0) {
 		return (
@@ -23,7 +31,7 @@ export function LinkList() {
 	return (
 		<ul className="flex flex-col gap-4 w-full">
 			{links.map((link) => (
-				<LinkItem key={link.originalUrl} {...link} />
+				<LinkItem key={link.shortUrl} {...link} />
 			))}
 		</ul>
 	);

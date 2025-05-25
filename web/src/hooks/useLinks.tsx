@@ -22,7 +22,7 @@ export function useCreateLinkMutation() {
 	const mutation = useMutation({
 		mutationFn: (link: CreateLinkRequest) => createLink(link),
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["links"] });
+			queryClient.refetchQueries({ queryKey: ["links"] });
 		},
 	});
 
@@ -31,10 +31,13 @@ export function useCreateLinkMutation() {
 
 export function useDeleteLinkMutation() {
 	const mutation = useMutation({
-		mutationFn: (id: string) => deleteLink(id),
+		mutationFn: (shortUrl: string) => deleteLink(shortUrl),
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["links"] });
+			queryClient.refetchQueries({ queryKey: ["links"] });
 		},
+		onSettled: () => {
+			queryClient.refetchQueries({ queryKey: ["links"] });
+		},	
 	});
 
 	return mutation;
@@ -44,7 +47,7 @@ export function useUpdateLinkAccessNumberMutation() {
 	const mutation = useMutation({
 		mutationFn: (shortUrl: string) => updateLinkAccessNumber(shortUrl),
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["links"] });
+			queryClient.refetchQueries({ queryKey: ["links"] });
 		},
 	});
 

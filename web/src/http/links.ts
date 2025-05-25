@@ -19,14 +19,14 @@ export async function createLink(link: CreateLinkRequest) {
 	return response;
 }
 
-export async function deleteLink<T>(shortUrl: string) {
-	const response = await api.delete<T>({ url: `${BASE_URL}/links/${shortUrl}` });
+export async function deleteLink(shortUrl: string) {
+	const response = await api.delete({ url: `${BASE_URL}/link/${encodeURIComponent(shortUrl)}` });
 
 	return response;
 }
 
-export async function updateLinkAccessNumber<T>(shortUrl: string) {
-	const response = await api.patch<T>({ url: `${BASE_URL}/links/${shortUrl}` });
+export async function updateLinkAccessNumber(shortUrl: string) {
+	const response = await api.patch({ url: `${BASE_URL}/link/${encodeURIComponent(shortUrl)}` });
 
 	return response;
 }

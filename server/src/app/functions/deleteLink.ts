@@ -14,8 +14,6 @@ export type DeleteLinkInput = z.infer<typeof deleteLinkInput>
 export async function deleteLink(input: DeleteLinkInput) {
   const { shortUrl } = input
 
-  console.log('shortUrl', shortUrl)
-
   const result = await db
     .select()
     .from(links)
