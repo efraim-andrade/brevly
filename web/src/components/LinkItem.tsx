@@ -38,12 +38,12 @@ export function LinkItem({
 		>
 			<div className="flex flex-col gap-1 col-span-3 lg:col-span-4">
 				<a
-					href={shortUrl}
+					href={`/${shortUrl}`}
 					target="_blank"
 					rel="noopener noreferrer"
-					className="text-md text-blue-base truncate hover:brightness-130"
+					className="text-md font-semibold text-blue-base truncate hover:brightness-130"
 				>
-					{shortUrl}
+					https://brev.ly/{shortUrl}
 				</a>
 
 				<a

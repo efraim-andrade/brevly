@@ -8,7 +8,12 @@ import { refinedUrl } from '~/shared/zod'
 
 export const createLinkInput = z.object({
   originalUrl: refinedUrl,
-  shortUrl: refinedUrl,
+  shortUrl: z.string().min(1, 'Campo obrigatório').refine((value) => {
+    const forbiddenChars = /[<>{}"|\\^`\s']/;
+    return !forbiddenChars.test(value);
+  }, {
+    message: 'Link encurtado não pode conter caracteres inválidos',
+  }),
 })
 
 export type CreateLinkInput = z.infer<typeof createLinkInput>

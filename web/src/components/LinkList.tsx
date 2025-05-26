@@ -2,6 +2,8 @@ import { Feedback } from "@/components/Feedback";
 import { LinkItem } from "@/components/LinkItem";
 import { useLinksQuery } from "@/hooks/useLinks";
 import { LinkIcon, SpinnerIcon } from "@phosphor-icons/react";
+import * as ScrollArea from "@radix-ui/react-scroll-area";
+
 
 export function LinkList() {
 	const { data: links, error, isFetching } = useLinksQuery();
@@ -29,10 +31,22 @@ export function LinkList() {
 	}
 
 	return (
-		<ul className="flex flex-col gap-4 w-full">
-			{links.map((link) => (
-				<LinkItem key={link.shortUrl} {...link} />
-			))}
-		</ul>
+		<ScrollArea.Root type="scroll" className="overflow-hidden">
+			<ScrollArea.Viewport className="h-[35dvh] lg:h-[60dvh] w-full">
+				<ul className="flex flex-col gap-4 w-full">
+						
+					{links.map((link) => (
+						<LinkItem key={link.shortUrl} {...link} />
+					))}
+				</ul>
+			</ScrollArea.Viewport>
+
+			<ScrollArea.Scrollbar
+				className="flex touch-none select-none bg-blue-base p-0.5 transition-colors duration-[160ms] ease-out data-[orientation=horizontal]:h-2.5 data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col"
+				orientation="vertical"
+			>
+				<ScrollArea.Thumb className="relative flex-1 rounded-[10px] bg-blue-950 before:absolute before:left-1/2 before:top-1/2 before:size-full before:min-h-11 before:min-w-11 before:-translate-x-1/2 before:-translate-y-1/2" />
+			</ScrollArea.Scrollbar>
+		</ScrollArea.Root>
 	);
 }
