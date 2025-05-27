@@ -27,14 +27,23 @@ const variantsStyles = {
 	},
 };
 
-export function Input({ label, name, error, register, prefix, ...rest }: InputProps) {
+export function Input({
+	label,
+	name,
+	error,
+	register,
+	prefix,
+	...rest
+}: InputProps) {
 	const hasError = !!error;
 
 	return (
 		<div className="flex flex-col gap-2 w-full">
 			<div className="flex flex-col-reverse gap-2 relative">
 				{prefix && (
-					<span className="text-gray-400 text-md absolute top-[54%] left-4 select-none">{prefix}</span>
+					<span className="text-gray-400 text-md absolute top-[54%] left-4 select-none">
+						{prefix}
+					</span>
 				)}
 
 				<input

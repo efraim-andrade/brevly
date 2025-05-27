@@ -1,3 +1,5 @@
+import { queryClient } from "@/lib/query";
+
 type APICallProps<T = unknown> = {
 	url: string;
 	data?: T;
@@ -10,7 +12,9 @@ export const api = {
 
 			if (!response.ok) {
 				const errorData = await response.json();
-				throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+				throw new Error(
+					errorData.message || `HTTP error! status: ${response.status}`,
+				);
 			}
 
 			return await (response.json() as Promise<T>);
@@ -31,12 +35,16 @@ export const api = {
 
 			if (!response.ok) {
 				const errorData = await response.json();
-				throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+				throw new Error(
+					errorData.message || `HTTP error! status: ${response.status}`,
+				);
 			}
 
 			return await (response.json() as Promise<T>);
-		} catch (error) {
-			throw error;
+		} finally {
+			queryClient.invalidateQueries({
+				queryKey: ["links"],
+			});
 		}
 	},
 
@@ -48,12 +56,16 @@ export const api = {
 
 			if (!response.ok) {
 				const errorData = await response.json();
-				throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+				throw new Error(
+					errorData.message || `HTTP error! status: ${response.status}`,
+				);
 			}
 
 			return await (response.json() as Promise<T>);
-		} catch (error) {
-			throw error;
+		} finally {
+			queryClient.invalidateQueries({
+				queryKey: ["links"],
+			});
 		}
 	},
 
@@ -66,30 +78,38 @@ export const api = {
 
 			if (!response.ok) {
 				const errorData = await response.json();
-				throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+				throw new Error(
+					errorData.message || `HTTP error! status: ${response.status}`,
+				);
 			}
 
 			return await (response.json() as Promise<T>);
-		} catch (error) {
-			throw error;
+		} finally {
+			queryClient.invalidateQueries({
+				queryKey: ["links"],
+			});
 		}
 	},
 
-	patch: async <T>({ url, data }: APICallProps<T>) => {
+	put: async <T>({ url, data }: APICallProps<T>) => {
 		try {
 			const response = await fetch(url, {
-				method: "PATCH",
+				method: "PUT",
 				body: JSON.stringify(data),
 			});
 
 			if (!response.ok) {
 				const errorData = await response.json();
-				throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+				throw new Error(
+					errorData.message || `HTTP error! status: ${response.status}`,
+				);
 			}
 
 			return await (response.json() as Promise<T>);
-		} catch (error) {
-			throw error;
+		} finally {
+			queryClient.invalidateQueries({
+				queryKey: ["links"],
+			});
 		}
 	},
 };

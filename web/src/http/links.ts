@@ -5,6 +5,16 @@ import type { Link } from "@/types";
 export async function getLinks() {
 	const response = await api.get<Link[]>({ url: `${BASE_URL}/links` });
 
+	return response.sort(
+		(current, next) => next.accessCount - current.accessCount,
+	);
+}
+
+export async function getLink(shortUrl: string) {
+	const response = await api.get<Link>({
+		url: `${BASE_URL}/link/${encodeURIComponent(shortUrl)}`,
+	});
+
 	return response;
 }
 
@@ -20,13 +30,17 @@ export async function createLink(link: CreateLinkRequest) {
 }
 
 export async function deleteLink(shortUrl: string) {
-	const response = await api.delete({ url: `${BASE_URL}/link/${encodeURIComponent(shortUrl)}` });
+	const response = await api.delete({
+		url: `${BASE_URL}/link/${encodeURIComponent(shortUrl)}`,
+	});
 
 	return response;
 }
 
 export async function updateLinkAccessNumber(shortUrl: string) {
-	const response = await api.patch({ url: `${BASE_URL}/link/${encodeURIComponent(shortUrl)}` });
+	const response = await api.put({
+		url: `${BASE_URL}/link/${encodeURIComponent(shortUrl)}/access`,
+	});
 
 	return response;
 }

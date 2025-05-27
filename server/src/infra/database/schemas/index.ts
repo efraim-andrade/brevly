@@ -1,5 +1,5 @@
-import { links } from '~/infra/database/schemas/links'
+import { links } from "~/infra/database/schemas/links";
 
 export const schema = {
-  links,
-}
+	links,
+};

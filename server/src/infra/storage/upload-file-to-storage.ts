@@ -1,55 +1,56 @@
-import { randomUUID } from 'node:crypto'
-import { extname } from 'node:path'
-import { Readable } from 'node:stream'
+import { randomUUID } from "node:crypto";
+import { extname } from "node:path";
+import { Readable } from "node:stream";
 
-import { Upload } from '@aws-sdk/lib-storage'
-import { z } from 'zod'
+import { Upload } from "@aws-sdk/lib-storage";
+import { z } from "zod";
 
-import { env } from '~/env'
-import { r2 } from '~/infra/storage/client'
+import { env } from "~/env";
+import { r2 } from "~/infra/storage/client";
 
 const uploadFileToStorageInput = z.object({
-  folder: z.enum(['images', 'downloads']),
-  fileName: z.string(),
-  contentType: z.string(),
-  contentStream: z.instanceof(Readable),
-})
+	folder: z.enum(["images", "downloads"]),
+	fileName: z.string(),
+	contentType: z.string(),
+	contentStream: z.instanceof(Readable),
+});
 
-type UploadFileToStorageInput = z.input<typeof uploadFileToStorageInput>
+type UploadFileToStorageInput = z.input<typeof uploadFileToStorageInput>;
 
 export async function uploadFileToStorage(input: UploadFileToStorageInput) {
-  const { contentStream, contentType, fileName, folder } =
-    uploadFileToStorageInput.parse(input)
+	const { contentStream, contentType, fileName, folder } =
+		uploadFileToStorageInput.parse(input);
 
-    console.log("content  Stream", contentStream)
+	console.log("content  Stream", contentStream);
 
-  const fileExtension = extname(fileName)
+	const fileExtension = extname(fileName);
 
-  const fileNameWithoutExtension = fileName.split('.')[0]
+	const fileNameWithoutExtension = fileName.split(".")[0];
 
-  const sanitizedFileName = fileNameWithoutExtension.replace(
-    /[^a-zA-Z0-9]/g,
-    ''
-  )
+	const sanitizedFileName = fileNameWithoutExtension.replace(
+		/[^a-zA-Z0-9]/g,
+		"",
+	);
 
-  const sanitizedFileNameWithExtension = sanitizedFileName.concat(fileExtension)
+	const sanitizedFileNameWithExtension =
+		sanitizedFileName.concat(fileExtension);
 
-  const uniqueFileName = `${folder}/${randomUUID()}-${sanitizedFileNameWithExtension}`
+	const uniqueFileName = `${folder}/${randomUUID()}-${sanitizedFileNameWithExtension}`;
 
-  const upload = new Upload({
-    client: r2,
-    params: {
-      Key: uniqueFileName,
-      Bucket: env.CLOUDFLARE_BUCKET,
-      Body: contentStream,
-      ContentType: contentType,
-    },
-  })
+	const upload = new Upload({
+		client: r2,
+		params: {
+			Key: uniqueFileName,
+			Bucket: env.CLOUDFLARE_BUCKET,
+			Body: contentStream,
+			ContentType: contentType,
+		},
+	});
 
-  await upload.done()
+	await upload.done();
 
-  return {
-    key: uniqueFileName,
-    url: new URL(uniqueFileName, env.CLOUDFLARE_PUBLIC_URL).toString(),
-  }
+	return {
+		key: uniqueFileName,
+		url: new URL(uniqueFileName, env.CLOUDFLARE_PUBLIC_URL).toString(),
+	};
 }

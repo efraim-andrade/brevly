@@ -1,9 +1,9 @@
-import { jsonSchemaTransform } from 'fastify-type-provider-zod'
+import { jsonSchemaTransform } from "fastify-type-provider-zod";
 
-type TransformSwaggerSchemaDAta = Parameters<typeof jsonSchemaTransform>[0]
+type TransformSwaggerSchemaDAta = Parameters<typeof jsonSchemaTransform>[0];
 
 export function transformSwaggerSchema(data: TransformSwaggerSchemaDAta) {
-  const { schema, url } = jsonSchemaTransform(data)
+	const { schema, url } = jsonSchemaTransform(data);
 
-  return { schema, url }
+	return { schema, url };
 }

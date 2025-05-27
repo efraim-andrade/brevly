@@ -2,6 +2,7 @@ import {
 	type CreateLinkRequest,
 	createLink,
 	deleteLink,
+	getLink,
 	getLinks,
 	updateLinkAccessNumber,
 } from "@/http/links";
@@ -13,6 +14,16 @@ export function useLinksQuery() {
 		queryKey: ["links"],
 		queryFn: () => getLinks(),
 		initialData: [],
+	});
+
+	return query;
+}
+
+export function useLinkQuery(shortUrl: string) {
+	const query = useQuery({
+		queryKey: ["link", shortUrl],
+		queryFn: () => getLink(shortUrl),
+		initialData: undefined,
 	});
 
 	return query;
@@ -37,7 +48,7 @@ export function useDeleteLinkMutation() {
 		},
 		onSettled: () => {
 			queryClient.refetchQueries({ queryKey: ["links"] });
-		},	
+		},
 	});
 
 	return mutation;
