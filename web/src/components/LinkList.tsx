@@ -33,7 +33,7 @@ export function LinkList() {
 
 	return (
 		<ScrollArea.Root type="scroll" className="overflow-hidden w-full">
-			<ScrollArea.Viewport className="h-[35dvh] lg:h-[60dvh] w-full">
+			<ScrollArea.Viewport className="h-[35dvh] lg:h-[64dvh] w-full">
 				<ul className="flex flex-col gap-4 w-full">
 					{links.map((link) => (
 						<LinkItem key={link.shortUrl} {...link} />
