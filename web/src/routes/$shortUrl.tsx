@@ -1,13 +1,8 @@
 import { CardPage } from "@/components/CardPage";
 import { NotFound } from "@/components/NotFound";
-import { Button } from "@/components/ui";
-import {
-	useLinkQuery,
-	useUpdateLinkAccessNumberMutation,
-} from "@/hooks/useLinks";
-import { ArrowLeftIcon, WarningIcon } from "@phosphor-icons/react";
+import { useRedirect } from "@/hooks/useRedirect";
+import { SpinnerIcon, WarningIcon } from "@phosphor-icons/react";
 import { createFileRoute, useParams } from "@tanstack/react-router";
-import { useCallback, useEffect } from "react";
 
 export const Route = createFileRoute("/$shortUrl")({
 	component: ShortUrl,
@@ -16,22 +11,18 @@ export const Route = createFileRoute("/$shortUrl")({
 function ShortUrl() {
 	const { shortUrl } = useParams({ from: "/$shortUrl" });
 
-	const { data } = useLinkQuery(shortUrl);
+	const { data, isQueryLoading, mutationError, queryError, secondsRemaining } =
+		useRedirect(shortUrl);
 
-	const { mutateAsync, error } = useUpdateLinkAccessNumberMutation();
-
-	const handleIncrementAccessCount = useCallback(async () => {
-		await mutateAsync(shortUrl);
-	}, [mutateAsync, shortUrl]);
-
-	useEffect(() => {
-		if (data) {
-			handleIncrementAccessCount();
-			setTimeout(() => {
-				window.location.href = data.originalUrl;
-			}, 1500);
-		}
-	}, [data, handleIncrementAccessCount]);
+	if (isQueryLoading) {
+		return (
+			<CardPage
+				image={<SpinnerIcon size={60} className="text-primary animate-spin" />}
+				title="Carregando..."
+				description="Buscando seu link..."
+			/>
+		);
+	}
 
 	if (!data) {
 		return <NotFound />;
@@ -40,7 +31,7 @@ function ShortUrl() {
 	return (
 		<CardPage
 			image={
-				error ? (
+				queryError || mutationError ? (
 					<WarningIcon size={60} className="text-danger" />
 				) : (
 					<img
@@ -50,33 +41,17 @@ function ShortUrl() {
 					/>
 				)
 			}
-			title={error ? "Erro ao redirecionar" : "Redirecionando..."}
+			title={queryError ? "Erro ao redirecionar" : "Redirecionando..."}
 			description={
-				error ? (
-					<>
-						Algo deu errado ao redirecionar
-						<span className="block mt-1">Tente novamente mais tarde, </span>
-						<Button
-							className="mt-4 mx-auto"
-							label="Voltar"
-							variant="secondary"
-							icon={<ArrowLeftIcon size={16} className="text-white" />}
-							onClick={() => {
-								window.location.href = "/";
-							}}
-						/>
-					</>
-				) : (
-					<>
-						O link será aberto automaticamente em alguns instantes.
-						<span className="block mt-1">
-							Não foi redirecionado?{" "}
-							<a href={`/${shortUrl}`} className="text-blue-base underline">
-								Acesse aqui
-							</a>
-						</span>
-					</>
-				)
+				<>
+					O link será aberto automaticamente em {secondsRemaining} segundos.
+					<span className="block mt-1">
+						Não foi redirecionado?{" "}
+						<a href={data.originalUrl} className="text-blue-base underline">
+							Acesse aqui
+						</a>
+					</span>
+				</>
 			}
 		/>
 	);

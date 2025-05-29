@@ -9,18 +9,13 @@ import {
 } from "@phosphor-icons/react";
 import { useState } from "react";
 
-export function LinkItem({
-	accessCount = 0,
-	originalUrl,
-	shortUrl,
-	...rest
-}: Link) {
+export function LinkItem({ accessCount = 0, originalUrl, shortUrl }: Link) {
 	const { mutate: deleteLink, isPending: isDeleting } = useDeleteLinkMutation();
 
 	const [copied, setCopied] = useState(false);
 
 	const handleCopy = () => {
-		navigator.clipboard.writeText(shortUrl);
+		navigator.clipboard.writeText(`https://brev.ly/${shortUrl}`);
 		setCopied(true);
 
 		setTimeout(() => {
