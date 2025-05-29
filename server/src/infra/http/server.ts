@@ -66,6 +66,11 @@ server.register(getLinkRoute);
 server.register(updateAccessRoute);
 server.register(exportLinksRoute);
 
-server.listen({ port: Number(env.PORT) }).then(() => {
-	console.log(`Brev.ly server is running on port ${env.PORT}... 🪴`);
-});
+server
+	.listen({
+		port: Number(env.PORT),
+		host: "0.0.0.0",
+	})
+	.then(() => {
+		console.log(`Brev.ly server is running on port ${env.PORT}... 🪴`);
+	});

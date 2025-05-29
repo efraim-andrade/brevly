@@ -1,21 +1,33 @@
-FROM node:22-alpine
+FROM node:22 AS base 
 
-WORKDIR /app
+RUN npm i -g pnpm
 
-# Install pnpm globally
-RUN npm install -g pnpm
+FROM base AS dependencies
 
-# Copy package files
+WORKDIR /usr/src/app
+
 COPY package.json pnpm-lock.yaml ./
 
-# Install dependencies
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
-# Copy the rest of the application code
+FROM base AS build
+
+WORKDIR /usr/src/app
+
 COPY . .
+COPY --from=dependencies /usr/src/app/node_modules ./node_modules
 
-# Expose port 3000 for development server
+RUN pnpm build
+RUN pnpm prune --prod
+
+FROM gcr.io/distroless/nodejs22 AS runner
+
+USER 100
+# Copy application file
+COPY --from=build /usr/src/app/dist ./dist
+COPY --from=build /usr/src/app/node_modules ./node_modules
+COPY --from=build /usr/src/app/package.json ./package.json
+
 EXPOSE 3333
 
-# Start development server
-CMD ["pnpm", "dev"]
+CMD ["dist/infra/http/server.mjs"]
