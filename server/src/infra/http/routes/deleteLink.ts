@@ -1,6 +1,6 @@
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import { z } from "zod";
-import { deleteLink, DeleteLinkInput } from "~/app/functions/deleteLink";
+import { DeleteLinkInput, deleteLink } from "~/app/functions/deleteLink";
 
 const swaggerSchema = {
 	response: {
@@ -10,6 +10,28 @@ const swaggerSchema = {
 		409: z.object({
 			message: z.string(),
 		}),
+	},
+	summary: "Delete a link",
+	tags: ["Links"],
+	description: "Deletes a link by its short URL.",
+	schema: {
+		params: z.object({
+			shortUrl: z.string().min(1, "Short URL is required"),
+		}),
+		response: {
+			"204": {
+				type: "object",
+				properties: {
+					shortUrl: { type: "string" },
+				},
+			},
+			"409": {
+				type: "object",
+				properties: {
+					message: { type: "string" },
+				},
+			},
+		},
 	},
 };
 

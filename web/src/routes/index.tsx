@@ -2,6 +2,7 @@ import { Header } from "@/components/Header";
 import { LinkList } from "@/components/LinkList";
 import { NewLinkForm } from "@/components/NewLinkForm";
 import { Button, Card } from "@/components/ui";
+import { getCSV } from "@/http/csv";
 import { DownloadSimpleIcon } from "@phosphor-icons/react";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -10,6 +11,14 @@ export const Route = createFileRoute("/")({
 });
 
 function RouteComponent() {
+	const handleDownloadCSV = async () => {
+		const url = await getCSV();
+
+		if (!url) return;
+
+		window.open(url, "_blank");
+	};
+
 	return (
 		<main className="max-w-[980px] mx-auto flex flex-col gap-6">
 			<Header />
@@ -26,7 +35,7 @@ function RouteComponent() {
 							icon={<DownloadSimpleIcon />}
 							label="Baixar CSV"
 							variant="secondary"
-							onClick={() => console.log("download csv")}
+							onClick={handleDownloadCSV}
 						/>
 					}
 				>

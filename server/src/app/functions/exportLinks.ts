@@ -1,7 +1,7 @@
-import { stringify } from "csv-stringify";
 import { PassThrough, Transform } from "node:stream";
 import { pipeline } from "node:stream/promises";
-import { ErrorExportingLink } from "~/app/functions/errors/errorExportingLink";
+import { stringify } from "csv-stringify";
+import type { ErrorExportingLink } from "~/app/functions/errors/errorExportingLink";
 import { db, pg } from "~/infra/database";
 import { links } from "~/infra/database/schemas/links";
 import { uploadFileToStorage } from "~/infra/storage/upload-file-to-storage";
@@ -26,10 +26,10 @@ export async function exportLinks(): Promise<
 		delimiter: ",",
 		header: true,
 		columns: [
-			{ key: "originalUrl", header: "Original URL" },
-			{ key: "shortUrl", header: "Short URL" },
-			{ key: "accessCount", header: "Access Count" },
-			{ key: "createdAt", header: "Created At" },
+			{ key: "original_url", header: "Original URL" },
+			{ key: "short_url", header: "Short URL" },
+			{ key: "access_count", header: "Access Count" },
+			{ key: "created_at", header: "Created At" },
 		],
 	});
 

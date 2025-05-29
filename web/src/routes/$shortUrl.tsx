@@ -26,7 +26,6 @@ function ShortUrl() {
 
 	useEffect(() => {
 		if (data) {
-			console.log("passou aqui ");
 			handleIncrementAccessCount();
 			setTimeout(() => {
 				window.location.href = data.originalUrl;

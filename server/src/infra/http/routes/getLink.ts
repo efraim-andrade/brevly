@@ -15,6 +15,41 @@ const swaggerSchema = {
 			message: z.string(),
 		}),
 	},
+	summary: "Get a link by its short URL",
+	tags: ["Links"],
+	description: "Retrieves a link by its short URL.",
+	schema: {
+		params: {
+			type: "object",
+			properties: {
+				shortUrl: { type: "string", minLength: 1, description: "Short URL" },
+			},
+			required: ["shortUrl"],
+		},
+		response: {
+			"200": {
+				type: "object",
+				properties: {
+					originalUrl: { type: "string", format: "uri" },
+					shortUrl: { type: "string" },
+					accessCount: { type: "number" },
+					createdAt: { type: "string", format: "date-time" },
+					expirationDate: {
+						type: "string",
+						format: "date-time",
+						nullable: true,
+					},
+				},
+				required: ["originalUrl", "shortUrl", "accessCount", "createdAt"],
+			},
+			"404": {
+				type: "object",
+				properties: {
+					message: { type: "string" },
+				},
+			},
+		},
+	},
 };
 
 export async function getLinkRoute(server: FastifyInstance) {

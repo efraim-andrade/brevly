@@ -16,6 +16,34 @@ const swaggerSchema = {
 			message: z.string(),
 		}),
 	},
+	summary: "Update access count for a link",
+	tags: ["Links"],
+	description:
+		"Updates the access count for a link identified by its short URL.",
+	schema: {
+		params: {
+			type: "object",
+			properties: {
+				shortUrl: { type: "string", minLength: 1, description: "Short URL" },
+			},
+			required: ["shortUrl"],
+		},
+		response: {
+			"200": {
+				type: "object",
+				properties: {
+					accessCount: { type: "number" },
+				},
+				required: ["accessCount"],
+			},
+			"404": {
+				type: "object",
+				properties: {
+					message: { type: "string" },
+				},
+			},
+		},
+	},
 };
 
 export async function updateAccessRoute(server: FastifyInstance) {

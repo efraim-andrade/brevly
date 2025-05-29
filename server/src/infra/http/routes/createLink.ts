@@ -20,6 +20,34 @@ const swaggerSchema = {
 			message: z.string(),
 		}),
 	},
+	summary: "Create a new link",
+	tags: ["Links"],
+	description: "Creates a new link and returns the short URL.",
+	schema: {
+		body: {
+			type: "object",
+			properties: {
+				originalUrl: { type: "string", format: "uri" },
+				customShortUrl: { type: "string", nullable: true },
+				expirationDate: { type: "string", format: "date-time", nullable: true },
+			},
+			required: ["originalUrl"],
+		},
+		response: {
+			"201": {
+				type: "object",
+				properties: {
+					shortUrl: { type: "string" },
+				},
+			},
+			"409": {
+				type: "object",
+				properties: {
+					message: { type: "string" },
+				},
+			},
+		},
+	},
 };
 
 export const createLinkRoute: FastifyPluginAsyncZod = async (server) => {

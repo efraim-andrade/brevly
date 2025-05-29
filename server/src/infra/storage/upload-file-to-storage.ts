@@ -21,8 +21,6 @@ export async function uploadFileToStorage(input: UploadFileToStorageInput) {
 	const { contentStream, contentType, fileName, folder } =
 		uploadFileToStorageInput.parse(input);
 
-	console.log("content  Stream", contentStream);
-
 	const fileExtension = extname(fileName);
 
 	const fileNameWithoutExtension = fileName.split(".")[0];
