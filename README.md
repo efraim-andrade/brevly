@@ -41,6 +41,7 @@ This project was developed as part of Rocketseat's Posgraduate first semester ch
 ```bash
 pnpm install
 pnpm run docker:generate
-pnpm run install
+pnpm run docker:up
+pnpm run db:migrate
 pnpm run dev
 ```
