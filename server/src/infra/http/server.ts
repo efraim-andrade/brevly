@@ -1,7 +1,7 @@
 import fastifyCors from "@fastify/cors";
 import fastifyMultipart from "@fastify/multipart";
 import fastifySwagger from "@fastify/swagger";
-import fastifySwaggerUi from "@fastify/swagger-ui";
+import scalarUI from "@scalar/fastify-api-reference";
 import fastify from "fastify";
 import {
 	hasZodFastifySchemaValidationErrors,
@@ -53,7 +53,7 @@ server.register(fastifySwagger, {
 	},
 	transform: transformSwaggerSchema,
 });
-server.register(fastifySwaggerUi, {
+server.register(scalarUI, {
 	routePrefix: "/docs",
 });
 
