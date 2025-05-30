@@ -9,8 +9,7 @@
     "db:migrate": "cd server && pnpm run db:migrate",
     "db:studio": "cd server && pnpm run db:studio",
     "docker:generate": "cd server && pnpm run docker:generate",
-    "docker:up": "cd server && pnpm run docker:up",
-    "install": "pnpm install && cd server && pnpm install && cd web && pnpm install"
+    "docker:up": "cd server && pnpm run docker:up"
   },
   "keywords": [],
   "author": "",

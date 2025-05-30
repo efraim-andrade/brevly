@@ -39,9 +39,12 @@ This project was developed as part of Rocketseat's Posgraduate first semester ch
 ## How to run
 
 ```bash
-pnpm install
+pnpm i
+cd server
 pnpm run docker:generate
 pnpm run docker:up
 pnpm run db:migrate
+cd ..
+cd web
 pnpm run dev
 ```
